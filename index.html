@@ -199,7 +199,7 @@ function crearGraficos(grupo) {
     if (id19) {
       // Encontrar último índice con dato válido
       let lastIndex = id19.pesos.length - 1;
-      while (lastIndex >= 0 && (id19.pesos[lastIndex] === null || id19.pesos[lastIndex] === undefined)) {
+      while (lastIndex >= 0 && (id19.pesos[lastIndex] === null || id19.pesos[lastIndex] === 0)) {
         lastIndex--;
       }
       if (lastIndex >= 0) {
@@ -219,20 +219,15 @@ function crearGraficos(grupo) {
     }
   }
 
-  // Combinar fechas y semanas para mostrar en dos líneas en el eje X
-  // Usamos tickvals para las posiciones y ticktext con salto de línea para mostrar dos líneas
-  const tickvals = fechas;
-  const ticktext = fechas.map((fecha, i) => `${fecha}<br>${semanas[i]}`);
-
   const layout = {
     title: {
       text: `Peso a lo largo del tiempo - Grupo ${grupo}`,
       font: { size: 22, color: '#34495e', family: 'Georgia, serif' }
     },
     xaxis: {
-      title: 'Fecha / Semana',
-      tickvals: tickvals,
-      ticktext: ticktext,
+      title: 'Semanas',
+      tickvals: fechas,
+      ticktext: semanas,
       tickangle: -45,
       tickfont: { size: 12, color: '#34495e', family: 'Georgia, serif' },
       zeroline: false,
@@ -240,6 +235,7 @@ function crearGraficos(grupo) {
     },
     yaxis: {
       title: 'Peso',
+      range: [0, 400],  // Rango fijo del eje Y hasta 400
       tickfont: { size: 12, color: '#34495e', family: 'Georgia, serif' },
       zeroline: false
     },
